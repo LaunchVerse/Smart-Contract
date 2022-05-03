@@ -1,9 +1,3 @@
-/** # Smart-Contract
-The smart contract of LaunchVerse-XLV is created in the safest way for the investors. There is no way for the owner to rug or use the funds or tokens 100% safe
-
- *Submitted for verification at BscScan.com 
- */
-
 // SPDX-License-Identifier: Unlicensed
 pragma solidity ^0.8.4;
 
@@ -770,10 +764,9 @@ contract XLV is Context, IBEP20, Ownable {
     uint256 private _totalFeesToContract = 9000;
 
     uint256 public _maxWalletToken = _tTotal.mul(2).div(100);
-    uint256 public _maxSellLimit = _tTotal.mul(1).div(100);
     uint256 public _swapTokensAt = 100 * 10**5 * 10**9;
 
-    bool tradeEnable = false;
+    bool public tradeEnable = false;
     // auto liquidity
     bool public _swapAndLiquifyEnabled = true;
     bool _inSwapAndLiquify;
@@ -1018,10 +1011,6 @@ contract XLV is Context, IBEP20, Ownable {
         _investmentWallet = newWallet;
     }
 
-    function changeMaxSellLimit(uint256 _amount) external onlyOwner {
-        _maxSellLimit = _amount;
-    }
-
     function changeMaxWalletToken(uint256 _amount) external onlyOwner {
         _maxWalletToken = _amount;
     }
@@ -1218,10 +1207,6 @@ contract XLV is Context, IBEP20, Ownable {
                     reciverTokenBalance + amount <= _maxWalletToken,
                     "Max Wallet Token Exceeded."
                 );
-            }
-
-            if (to == _uniswapV2Pair) {
-                require(amount <= _maxSellLimit, "Max Sell limit Exceeded.");
             }
         }
 
